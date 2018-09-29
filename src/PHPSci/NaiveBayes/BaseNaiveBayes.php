@@ -30,6 +30,7 @@ abstract class BaseNaiveBayes
         $predicted_classes = [];
         $jll = $this->_joint_log_likelihood($X);
         $predictions = CArray::toArray(CArray::argmax($jll, 1));
+
         foreach($predictions as $pred) {
             $predicted_classes[] = $this->classes_[[(int)$pred]];
         }

@@ -95,6 +95,7 @@ class GaussianNB extends BaseNaiveBayes implements Classifier
      */
     private function _partial_fit(\CArray $X, \CArray $y, \CArray $classes= null, $_refit= False, \CArray $sample_weight=null)
     {
+        $start_fit = microtime(true);
         list($X, $y) = ValidationUtils::check_X_y($X, $y);
 
         $epsilon = 1e-9 * CArray::amax(CArray::var($X));
@@ -148,6 +149,7 @@ class GaussianNB extends BaseNaiveBayes implements Classifier
         if(!CArray::all($unique_y_in_classes)) {
             throw new ValueErrorException("The target label(s) in y do not exist in the initial classes");
         }
+
         for($i = 0; $i < $unique_y->x; $i++) {
             $indices = CArray::search_keys($y, $classes[[$i]]);
             $X_i = $X[$indices];
